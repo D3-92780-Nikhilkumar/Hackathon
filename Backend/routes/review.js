@@ -45,6 +45,7 @@ router.put('/', (req, res) => {
         res.send(result.createResult(error, data))
     })  
 })
+
 router.get('/', (req, res) => {
     const sql = `SELECT * FROM reviews`
     pool.query(sql, (error, data) => {
@@ -52,6 +53,12 @@ router.get('/', (req, res) => {
     })
 })
 
-
+router.get('/myreview/:id', (req, res) => {
+    const user_id = req.params.id
+    const sql = `select * from reviews WHERE user_id  = ${user_id}`
+    pool.query(sql, (error, data) => {
+        res.send(result.createResult(error, data))
+    })
+})
 
 module.exports = router
